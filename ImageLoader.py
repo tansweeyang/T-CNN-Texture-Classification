@@ -2,60 +2,81 @@ import os
 import cv2
 import numpy as np
 from keras.utils import np_utils
-from skimage.feature import local_binary_pattern, greycomatrix, greycoprops
-from skimage.filters import gabor
+
 
 class ImageLoader:
-    def __init__(self, data_path, img_size, max_images_per_category):
-        self.data_path = data_path
-        self.img_size = img_size
-        self.max_images_per_category = max_images_per_category
+    def __init__(self, dataset_path):
+        self.dataset_path = dataset_path
+        self.categories = []
 
-    def load_image(self):
-        # Get the list of texture categories
-        categories = os.listdir(self.data_path + "images/")
+    def read_cv_content(self, train_file_name, val_file_name, test_file_name):
+        # Load split file content into an array
+        # Get predefined split file path according to split_name
 
-        # Initialize the arrays to store the images and labels
+        train_path = self.dataset_path + 'labels/' + train_file_name + '.txt'
+        val_path = self.dataset_path + 'labels/' + val_file_name + '.txt'
+        test_path = self.dataset_path + 'labels/' + test_file_name + '.txt'
+
+        with open(train_path, 'r') as f:
+            train_f_content = f.read().splitlines()
+        with open(val_path, 'r') as f:
+            val_f_content = f.read().splitlines()
+        with open(test_path, 'r') as f:
+            test_f_content = f.read().splitlines()
+
+        return train_f_content, val_f_content, test_f_content
+
+    def load_predefined_split_images(self, splits_file_content, img_size):
         images = []
         labels = []
 
-        # Loop over the categories
+        # Load images matched with split file content
+        # Get category path
+        categories_path = self.dataset_path + 'images'
+        # Get list of categories
+        self.categories = os.listdir(categories_path)
 
-        preprocessed = 0
-        for i, category in enumerate(categories):
-            # Get the list of images in this category
-            file_list = os.listdir(self.data_path + "images/" + category)
+        # For every category
+        for i, category in enumerate(self.categories):
+            category_path = os.path.join(self.dataset_path, 'images', category)  # Get category path
+            image_files = os.listdir(category_path)  # Get image files
 
-            # Loop over the images in this category
-            count = 0
+            # for every image file
+            for image_file in image_files:
+                # Check if the image file name matches with the split file content
+                split_image_path = category + '/' + image_file  # Get image path (in split file content format)
+                if split_image_path in splits_file_content:
+                    image_path = os.path.join(self.dataset_path, 'images', category, image_file)  # Get image path
+                    image = cv2.imread(image_path, 0)  # Open image in grayscale mode from path
+                    image = cv2.resize(image, (img_size, img_size))
 
-            for filename in file_list:
-                if count < self.max_images_per_category:
-                    # Read the image and resize it to the desired size
-                    img = cv2.imread(self.data_path + "images/" + category + "/" + filename)
+                    images.append(image)  # Append image to array
+                    labels.append(i)
 
-                    if img is not None:
-                        img = cv2.resize(img, (self.img_size, self.img_size))
-
-                        # Image Preprocessing
-                        gray_image = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-                        equalized_image = cv2.equalizeHist(gray_image)
-
-                        # Add the image and label to the arrays
-                        images.append(equalized_image)
-                        labels.append(i)
-                    count += 1
-
-                    preprocessed += 1
-                    print('Done preprocessing image: ' + str(preprocessed) + ' Now in category: ' + str(i))
-                else:
-                    break
-
-        # Convert the arrays to numpy arrays
         images = np.array(images)
         labels = np.array(labels)
 
-        # Convert the labels to one-hot encoded vectors
-        labels = np_utils.to_categorical(labels, num_classes=len(categories))
+        labels = np_utils.to_categorical(labels, num_classes=len(self.categories))  # One-hot encode labels
+        return images, labels
 
-        return images, labels, categories
+    @staticmethod
+    def preprocess_images(images):
+        preprocessed_images = []
+
+        for image in images:
+            equalized_image = cv2.equalizeHist(image)  # Equalize image
+            preprocessed_images.append(equalized_image)
+
+        preprocessed_images = np.stack(preprocessed_images, axis=0)  # Stack preprocessed images along a new axis
+        return preprocessed_images
+
+    @staticmethod
+    def normalize_images(images):
+        normalized_images = []
+
+        for image in images:
+            normalized_image = (image - np.mean(image)) / np.std(image)
+            normalized_images.append(normalized_image)
+
+        normalized_images = np.stack(normalized_images, axis=0)  # Stack normalized images along a new axis
+        return normalized_images
