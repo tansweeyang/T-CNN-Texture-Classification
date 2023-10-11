@@ -18,8 +18,8 @@ session = tf.compat.v1.Session(config=config)
 # Settings
 DATASET_PATH = 'dtd/'
 # Set to true of first run
-LOAD_DATA = True
-TRAIN_NETWORK = True
+LOAD_DATA = False
+TRAIN_NETWORK = False
 # Set to true after training both network
 COMPARE_NETWORKS = True
 

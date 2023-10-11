@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="c5380db4-7bdd-4919-b6c8-85a3583003c0" name="Changes" comment="Removed old main file">
-      <change beforePath="$PROJECT_DIR$/.idea/.name" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.name" afterDir="false" />
+    <list default="true" id="c5380db4-7bdd-4919-b6c8-85a3583003c0" name="Changes" comment="Added New Main and Plotter class">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Main.py" beforeDir="false" afterPath="$PROJECT_DIR$/Main.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -28,14 +28,14 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/eisly/Desktop/Year 3/Year 3 Sem 3/Digital Image Processing/Assignment/Texture Classification with T-CNN&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "last_opened_file_path": "C:/Users/eisly/Desktop/Year 3/Year 3 Sem 3/Project 1/An Emotion Recognition System Integrated WIth Human Intelligence",
+    "settings.editor.selected.configurable": "preferences.lookFeel"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\eisly\Desktop\Year 3\Year 3 Sem 3\Digital Image Processing\Assignment" />
@@ -64,7 +64,14 @@
       <option name="project" value="LOCAL" />
       <updated>1685774456821</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Added New Main and Plotter class">
+      <created>1685774595189</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1685774595189</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -81,6 +88,7 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Implemented predefined data splitting from dataset, formatted the code into oop." />
     <MESSAGE value="Removed old main file" />
-    <option name="LAST_COMMIT_MESSAGE" value="Removed old main file" />
+    <MESSAGE value="Added New Main and Plotter class" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added New Main and Plotter class" />
   </component>
 </project>
